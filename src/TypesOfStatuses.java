@@ -1,4 +1,6 @@
-package PACKAGE_NAME;
+public enum TypesOfStatuses {
+    NEW,
+    IN_PROGRESS,
+    DONE
 
-public enum typesOfStatuses {
 }
