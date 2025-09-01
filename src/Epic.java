@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class Epic extends Task{
+public class Epic extends Task {
     ArrayList<Subtask> listSubtask;
 
     public Epic(String nameTask, String descriptionTask, int idTask, TypesOfStatuses typesOfStatuses) {
@@ -9,15 +9,14 @@ public class Epic extends Task{
     }
 
     //Добавление подзадачи в список Epic задачи
-    public void addInListSubtask(Subtask subtask){
+    public void addInListSubtask(Subtask subtask) {
         listSubtask.add(subtask);
     }
 
     //Получение всех подзадач в списке Epic
-    public ArrayList<Subtask> getListSubInEpic(){
+    public ArrayList<Subtask> getListSubInEpic() {
         return listSubtask;
     }
-
 
 
 }
