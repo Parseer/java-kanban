@@ -1,4 +1,4 @@
-public enum TypesOfStatuses {
+public enum TaskStatus {
     NEW,
     IN_PROGRESS,
     DONE

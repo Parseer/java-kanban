@@ -1,10 +1,10 @@
 public class Task {
-    final String nameTask;  //название
-    String descriptionTask; // описание
+    private final String nameTask;  //название
+    private String descriptionTask; // описание
     private final int id; // id который не меняется
-    TypesOfStatuses typesOfStatuses; //статус выполнения
+    private TaskStatus typesOfStatuses; //статус выполнения
 
-    public Task(String nameTask, String descriptionTask, int id, TypesOfStatuses typesOfStatuses) {
+    public Task(String nameTask, String descriptionTask, int id, TaskStatus typesOfStatuses) {
         this.nameTask = nameTask;
         this.descriptionTask = descriptionTask;
         this.id = id;
@@ -19,8 +19,11 @@ public class Task {
         this.descriptionTask = descriptionTask;
     }
 
-    public TypesOfStatuses getTypesOfStatuses() {
+    public TaskStatus getStatus() {
         return typesOfStatuses;
+    }
+    public void setStatus(TaskStatus typesOfStatuses){
+        this.typesOfStatuses = typesOfStatuses;
     }
 
     public String getNameTask() {
