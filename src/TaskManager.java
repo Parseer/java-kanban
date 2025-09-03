@@ -32,48 +32,53 @@ public class TaskManager {
 
     // получение всех задач
 
-    public ArrayList<String> getTasks() {
+    public ArrayList<String> getAllTasks() {
         ArrayList<String> arrayListAll = new ArrayList<>();
 
         for (Task task : taskHashMap.values()) {
-            arrayListAll.add(task.getNameTask());
+            arrayListAll.add(task.getName());
         }
         for (Epic epic : epicHashMap.values()) {
-            arrayListAll.add(epic.getNameTask());
+            arrayListAll.add(epic.getName());
         }
         for (Subtask subtask : subtaskHashMap.values()) {
-            arrayListAll.add(subtask.getNameTask());
+            arrayListAll.add(subtask.getName());
         }
         return arrayListAll;
     }
 
     // получение задач Task
-    public ArrayList<String> getListTask() {
-        ArrayList<String> tasks = new ArrayList<>();
-        for (Task task : taskHashMap.values()) {
-            tasks.add(task.getNameTask());
-        }
-        return tasks;
+    public ArrayList<String> getTasks() {
+        if (!(taskHashMap.isEmpty())) {
+            ArrayList<String> tasks = new ArrayList<>();
+            for (Task task : taskHashMap.values()) {
+                tasks.add(task.getName());
+            }
+            return tasks;
+        } else return null;
     }
 
     // получение задач Epic
-    public ArrayList<String> getListTEpic() {
-        ArrayList<String> arrayListAll = new ArrayList<>();
-        for (Epic epic : epicHashMap.values()) {
-            arrayListAll.add(epic.getNameTask());
-        }
-        return arrayListAll; // лист всех Epic
+    public ArrayList<String> getEpics() {
+        if (!(epicHashMap.isEmpty())) {
+            ArrayList<String> arrayListAll = new ArrayList<>();
+            for (Epic epic : epicHashMap.values()) {
+                arrayListAll.add(epic.getName());
+            }
+            return arrayListAll; // лист всех Epic
+        } else return null;
     }
 
     // получение задач Subtask
-    public ArrayList<String> getListSubtask() {
+    public ArrayList<String> getSubtasks() {
         ArrayList<String> arrayListAll = new ArrayList<>();
-        for (Subtask subtask : subtaskHashMap.values()) {
-            arrayListAll.add(subtask.getNameTask());
-        }
-        return arrayListAll; // лист всех Sub
+        if (!(subtaskHashMap.isEmpty())) {
+            for (Subtask subtask : subtaskHashMap.values()) {
+                arrayListAll.add(subtask.getName());
+            }
+            return arrayListAll; // лист всех Sub
+        } else return null;
     }
-
 
     // Отчистка ArrayList
     public void deleteAllTask() {
@@ -82,7 +87,6 @@ public class TaskManager {
         subtaskHashMap.clear();
         System.gc();// для JVM
     }
-
 
     //получение по идентификатору
     public Task getTask(int idTask) {
@@ -124,68 +128,74 @@ public class TaskManager {
 
     public void updateSubtask(Subtask subtask) {
         taskHashMap.put(subtask.getId(), subtask);
-        typesOfStatuses(subtask.getEpicSub()); //обновит статус Epic
+        checkStatus(subtask.getEpicSub()); //обновит статус Epic
     }
 
     //удаление по id
     public void deleteTask(int idTask) {
-        taskHashMap.remove(idTask);
+        if (taskHashMap.containsKey(idTask)) {
+            taskHashMap.remove(idTask);
+        }
     }
 
     public void deleteEpic(int idEpic) {
-        for (Subtask subtask : epicHashMap.get(idEpic).getList()) {
-            subtaskHashMap.remove(subtask.getId());
+        if (epicHashMap.containsKey(idEpic)) {
+            for (Subtask subtask : epicHashMap.get(idEpic).getSubtasks()) {
+                subtaskHashMap.remove(subtask.getId());
+            }
+            epicHashMap.remove(idEpic);
         }
-        epicHashMap.remove(idEpic);
     }
 
     public void deleteSubtask(int idSub) {
         int idEpicSub;
-        if(subtaskHashMap.containsKey(idSub)){
+        if (subtaskHashMap.containsKey(idSub)) {
             idEpicSub = subtaskHashMap.get(idSub).getEpicSub().getId();
-            epicHashMap.get(idEpicSub).getList().remove(subtaskHashMap.get(idSub));
+            epicHashMap.get(idEpicSub).getSubtasks().remove(subtaskHashMap.get(idSub));
             subtaskHashMap.remove(idSub);
-            typesOfStatuses(epicHashMap.get(idEpicSub));
+            checkStatus(epicHashMap.get(idEpicSub));
         }
     }
-
 
     //получение списка всех подзадач Epic
     public ArrayList<Subtask> getEpicList(int idEpic) {
         if (epicHashMap.containsKey(idEpic)) {
-            return epicHashMap.get(idEpic).getList();
+            return epicHashMap.get(idEpic).getSubtasks();
         }
         return null;
     }
 
     // изменение статуса
     public void setStatusTask(int idTask, TaskStatus typesOfStatuses) {
-        getTask(idTask).setStatus(typesOfStatuses);  //ищем по id и меняем статус
+        if (taskHashMap.containsKey(idTask)) {
+            getTask(idTask).setStatus(typesOfStatuses);  //ищем по id и меняем статус
+        }
     }
 
     public void setStatusSubtask(int idSubtask, TaskStatus typesOfStatuses) {
-        getSubtask(idSubtask).setStatus(typesOfStatuses); //ищем по id и меняем статус
-        typesOfStatuses(getSubtask(idSubtask).getEpicSub()); // проверка и изменения статуса для Epic
+        if (subtaskHashMap.containsKey(idSubtask)) {
+            getSubtask(idSubtask).setStatus(typesOfStatuses); //ищем по id и меняем статус
+            checkStatus(getSubtask(idSubtask).getEpicSub()); // проверка и изменения статуса для Epic
+        }
     }
 
-
     // проверка статуса для Epic
-    public void typesOfStatuses(Epic epic) {
+    public void checkStatus(Epic epic) {
         epic.setStatus(TaskStatus.IN_PROGRESS);
-        if (epic.getList().isEmpty()) { // проверка на пустосту
+        if (epic.getSubtasks().isEmpty()) { // проверка на пустосту
             epic.setStatus(TaskStatus.NEW);
         }
 
         TaskStatus saveStatus = epic.getStatus();
 
-        for (Subtask subtask : epic.getList()) { //проверка на NEW
+        for (Subtask subtask : epic.getSubtasks()) { //проверка на NEW
             if (subtask.getStatus() == TaskStatus.NEW) {
                 epic.setStatus(TaskStatus.NEW);
             } else {
                 epic.setStatus(saveStatus);
             }
         }
-        for (Subtask subtask : epic.getList()) { //проверка на DONE
+        for (Subtask subtask : epic.getSubtasks()) { //проверка на DONE
             if (subtask.getStatus() == TaskStatus.DONE) {
                 epic.setStatus(TaskStatus.DONE);
             } else {

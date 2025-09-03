@@ -15,18 +15,23 @@ public class Task {
         return id;
     }
 
-    public void setDescriptionTask(String descriptionTask) {
+    public void setDescription(String descriptionTask) {
         this.descriptionTask = descriptionTask;
+    }
+
+    public String getDescription() {
+        return descriptionTask;
     }
 
     public TaskStatus getStatus() {
         return typesOfStatuses;
     }
-    public void setStatus(TaskStatus typesOfStatuses){
+
+    public void setStatus(TaskStatus typesOfStatuses) {
         this.typesOfStatuses = typesOfStatuses;
     }
 
-    public String getNameTask() {
+    public String getName() {
         return nameTask;
     }
 

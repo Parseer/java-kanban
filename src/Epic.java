@@ -14,11 +14,11 @@ public class Epic extends Task {
     }
 
     //Получение всех подзадач в списке Epic
-    public ArrayList<Subtask> getList() {
+    public ArrayList<Subtask> getSubtasks() {
         return listSubtask;
     }
 
-    public void setList(ArrayList<Subtask> listSubtask) {
+    public void setSubtask(ArrayList<Subtask> listSubtask) {
         this.listSubtask = listSubtask;
     }
 }

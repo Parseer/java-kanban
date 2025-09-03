@@ -17,21 +17,21 @@ public class Main {
 
         // печать
         System.out.println("--------Печать--------");
-        System.out.println(taskManager.getTasks()); //Полная печать
-        System.out.println(taskManager.getListTask());
-        System.out.println(taskManager.getListTEpic());
-        System.out.println(taskManager.getListSubtask());
+        System.out.println(taskManager.getAllTasks()); //Полная печать
+        System.out.println(taskManager.getTasks());
+        System.out.println(taskManager.getEpics());
+        System.out.println(taskManager.getSubtasks());
         System.out.println();
         System.out.println("--------Обновление--------");
         // обнорвление статуса тест
-        System.out.println(taskManager.getEpic(4).getNameTask() + ": " + taskManager.getEpic(4).getStatus());
-        System.out.println(taskManager.getSubtask(6).getNameTask() + ": " + taskManager.getSubtask(6).getStatus());
+        System.out.println(taskManager.getEpic(4).getName() + ": " + taskManager.getEpic(4).getStatus());
+        System.out.println(taskManager.getSubtask(6).getName() + ": " + taskManager.getSubtask(6).getStatus());
         taskManager.setStatusTask(1, TaskStatus.DONE); //Меняем статус задачи
         taskManager.setStatusSubtask(6, TaskStatus.DONE); //Меняем статус одной из задач
         System.out.println();
-        System.out.println(taskManager.getTask(1).getNameTask() + ": " + taskManager.getTask(1).getStatus());
-        System.out.println(taskManager.getEpic(4).getNameTask() + ": " + taskManager.getEpic(4).getStatus());
-        System.out.println(taskManager.getSubtask(6).getNameTask() + ": " + taskManager.getSubtask(6).getStatus());
+        System.out.println(taskManager.getTask(1).getName() + ": " + taskManager.getTask(1).getStatus());
+        System.out.println(taskManager.getEpic(4).getName() + ": " + taskManager.getEpic(4).getStatus());
+        System.out.println(taskManager.getSubtask(6).getName() + ": " + taskManager.getSubtask(6).getStatus());
         System.out.println();
 
         //удаление
@@ -40,13 +40,14 @@ public class Main {
         taskManager.deleteSubtask(6);
         taskManager.deleteSubtask(7);
 
-        System.out.println(taskManager.getTasks());
-        System.out.println(taskManager.getEpic(4).getNameTask() + ": " + taskManager.getEpic(4).getStatus());
-        System.out.println(taskManager.getEpic(4).getList().isEmpty()); //проверка на пусто
+        System.out.println(taskManager.getAllTasks());
+        System.out.println(taskManager.getEpic(4).getName() + ": " + taskManager.getEpic(4).getStatus());
+        System.out.println(taskManager.getEpic(4).getSubtasks().isEmpty()); //проверка на пусто
 
+        //Полная отчистка
         System.out.println("--------Полная отчистка--------");
         taskManager.deleteAllTask();
-        System.out.println(taskManager.getTasks());
+        System.out.println(taskManager.getAllTasks());
 
     }
 }
