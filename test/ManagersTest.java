@@ -75,13 +75,13 @@ class ManagersTest {
 
     @Test
     public void noSubInsEpic() {
-        Epic epicTwo = new Epic("1", "1",10,TaskStatus.NEW);
-        Subtask subtask1 = new Subtask("Подзадача 1", "Описание",11,TaskStatus.NEW, epicTwo);
-        Subtask subtask2 = new Subtask("Подзадача 2", "Описание",12,TaskStatus.NEW, epicTwo);
+        Epic epicTwo = new Epic("1", "1", 10, TaskStatus.NEW);
+        Subtask subtask1 = new Subtask("Подзадача 1", "Описание", 11, TaskStatus.NEW, epicTwo);
+        Subtask subtask2 = new Subtask("Подзадача 2", "Описание", 12, TaskStatus.NEW, epicTwo);
 
-        taskManager.addEpic(epicTwo.getName(),epicTwo.getDescription(),epicTwo.getStatus());
-        taskManager.addSubtask(subtask1.getName(),subtask1.getDescription(),subtask1.getStatus(),epicTwo);
-        taskManager.addSubtask(subtask1.getName(),subtask1.getDescription(),subtask1.getStatus(),epicTwo);
+        taskManager.addEpic(epicTwo.getName(), epicTwo.getDescription(), epicTwo.getStatus());
+        taskManager.addSubtask(subtask1.getName(), subtask1.getDescription(), subtask1.getStatus(), epicTwo);
+        taskManager.addSubtask(subtask1.getName(), subtask1.getDescription(), subtask1.getStatus(), epicTwo);
 
 
         taskManager.deleteSubtask(subtask1.getId());
@@ -91,7 +91,4 @@ class ManagersTest {
         assertEquals(2, epicTwo.getSubtasks().size());
 
     }
-
-
-
 }

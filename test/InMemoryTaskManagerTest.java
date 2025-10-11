@@ -42,5 +42,4 @@ class InMemoryTaskManagerTest {
         assertEquals(tasktest.getId(), taskTwo.getId()); //"Id одинаковые, -> конфликта при создании нет, потому что задача с заданным id
         // не попадает в список где id авто. -> задачи созданные вручную не будут учавствовать.
     }
-
 }

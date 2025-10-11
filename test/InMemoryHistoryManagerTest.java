@@ -111,7 +111,5 @@ class InMemoryHistoryManagerTest {
 
         assertNotEquals(SizeHistory, historyManager.getHistory().size());
         assertEquals(newSizeHistory, historyManager.getHistory().size());
-
     }
-
 }

@@ -52,6 +52,4 @@ class TaskTest {
         assertEquals(taskStatus, taskManager.getTask(1).getStatus(), "taskStatus задачи изменилось");
         assertEquals(id, taskManager.getTask(1).getId(), "id задачи изменилось");
     }
-
-
 }

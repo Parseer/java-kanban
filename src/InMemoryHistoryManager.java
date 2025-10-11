@@ -93,5 +93,4 @@ public class InMemoryHistoryManager implements HistoryManager {
         historyTask.clear();
         head.next = null;
     }
-
 }
