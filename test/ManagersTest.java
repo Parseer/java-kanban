@@ -36,7 +36,6 @@ class ManagersTest {
         Epic epic = taskManager.getEpic(3);
         Subtask subtask = taskManager.getSubtask(4);
 
-
         assertEquals(4, taskManager.getAllTasks().size(), "Кол-во совпадает");
         assertEquals(task, taskManager.getTask(1), "Равны следовательно найден, найдена Task");
         assertEquals(taskTwo, taskManager.getTask(2), "Равны следовательно найден, найдена TaskTwo");
@@ -54,9 +53,45 @@ class ManagersTest {
         historyManager.addHistory(new Task("1", "2", 1, TaskStatus.NEW)); //
         historyManager.addHistory(new Task("1", "2", 2, TaskStatus.NEW)); //
         historyManager.addHistory(new Epic("1", "2", 3, TaskStatus.NEW)); //
-        historyManager.addHistory(new Subtask("1", "2", 1, TaskStatus.NEW, taskManager.getEpic(3))); //
-        assertEquals(4, historyManager.getHistory().size());
+        historyManager.addHistory(new Subtask("1", "2", 1, TaskStatus.NEW, taskManager.getEpic(3)));
+        //теперь идет удаление повторов из истории
+        assertEquals(3, historyManager.getHistory().size());
     }
+
+    @Test
+    public void delSubNotOldData() {
+        //сохраним id подзадачи
+
+        //удаляем задачи
+        taskManager.deleteSubtask(4);
+        taskManager.deleteTask(1);
+        taskManager.deleteEpic(3);
+
+        //удаленные задачи == null
+        assertNull(taskManager.getSubtask(4));
+        assertNull(taskManager.getEpic(3));
+        assertNull(taskManager.getTask(1));
+    }
+
+    @Test
+    public void noSubInsEpic() {
+        Epic epicTwo = new Epic("1", "1",10,TaskStatus.NEW);
+        Subtask subtask1 = new Subtask("Подзадача 1", "Описание",11,TaskStatus.NEW, epicTwo);
+        Subtask subtask2 = new Subtask("Подзадача 2", "Описание",12,TaskStatus.NEW, epicTwo);
+
+        taskManager.addEpic(epicTwo.getName(),epicTwo.getDescription(),epicTwo.getStatus());
+        taskManager.addSubtask(subtask1.getName(),subtask1.getDescription(),subtask1.getStatus(),epicTwo);
+        taskManager.addSubtask(subtask1.getName(),subtask1.getDescription(),subtask1.getStatus(),epicTwo);
+
+
+        taskManager.deleteSubtask(subtask1.getId());
+
+        // проверяем что в эпике не осталось старого ID
+        assertFalse(epicTwo.getSubtasks().contains(subtask1));
+        assertEquals(2, epicTwo.getSubtasks().size());
+
+    }
+
 
 
 }

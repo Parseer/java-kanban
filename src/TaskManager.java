@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.List;
 
 public interface TaskManager {
     //Создание Task задачи
@@ -57,7 +58,7 @@ public interface TaskManager {
     // проверка статуса для Epic
     void checkStatus(Epic epic);
 
-    ArrayList<Task> getHistory();
+    List<Task> getHistory();
 
     void addHistory(Task task);
 
