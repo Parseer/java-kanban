@@ -29,6 +29,4 @@ class SubtaskTest {
         assertEquals(id, taskManager.getSubtask(2).getId(), "id задачи изменилось");
         assertEquals(taskManager.getEpic(1), taskManager.getSubtask(2).getEpicSub(), "id задачи изменилось");
     }
-
-
 }

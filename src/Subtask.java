@@ -9,5 +9,4 @@ public class Subtask extends Task {
     public Epic getEpicSub() { // получение Epic к которому пренадлежит
         return epic;
     }
-
 }

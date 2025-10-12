@@ -1,11 +1,7 @@
 import static org.junit.jupiter.api.Assertions.*;
 
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import java.util.List;
 
 
 class TaskTest {
@@ -56,6 +52,4 @@ class TaskTest {
         assertEquals(taskStatus, taskManager.getTask(1).getStatus(), "taskStatus задачи изменилось");
         assertEquals(id, taskManager.getTask(1).getId(), "id задачи изменилось");
     }
-
-
 }

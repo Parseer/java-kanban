@@ -1,4 +1,3 @@
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -26,5 +25,4 @@ class EpicTest {
         assertEquals(taskStatus, taskManager.getEpic(1).getStatus(), "taskStatus задачи изменилось");
         assertEquals(id, taskManager.getEpic(1).getId(), "id задачи изменилось");
     }
-
 }
