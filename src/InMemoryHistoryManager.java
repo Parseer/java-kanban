@@ -14,8 +14,8 @@ public class InMemoryHistoryManager implements HistoryManager {
         taskMap = new HashMap<>();
         head = new Node(-1); // фиктивная голова
         tail = new Node(-1); // фиктивный хвост
-        head.next = tail;
-        tail.prev = head;
+        head.setNext(tail);
+        tail.setPrev(head);
     }
 
     @Override
@@ -28,36 +28,35 @@ public class InMemoryHistoryManager implements HistoryManager {
 
         // Создаем новый узел
         Node newNode = new Node(task.getId());
-        newNode.task = task;
+        newNode.setTask(task);
         taskMap.put(task.getId(), newNode);
-
         addToHead(newNode);
 
     }
 
     public void printViewHistory() {
-        if (head.next != null) {
-            Node current = head.next;
+        if (head.getNext() != null) {
+            Node current = head.getNext();
             historyTask = new ArrayList<>();
 
             while (current != tail) {
-                historyTask.add(current.task);
-                current = current.next;
+                historyTask.add(current.getTask());
+                current = current.getNext();
             }
         }
     }
 
     //Перепревязка Node
     private void addToHead(Node node) {
-        node.prev = head;
-        node.next = head.next;
-        head.next.prev = node;
-        head.next = node;
+        node.setPrev(head);
+        node.setNext(head.getNext());
+        head.getNext().setPrev(node);
+        head.setNext(node);
     }
 
     private void removeNode(Node node) {
-        node.prev.next = node.next;
-        node.next.prev = node.prev;
+        node.getPrev().setNext(node.getNext());
+        node.getNext().setPrev(node.getPrev());
     }
 
     private void moveToHead(Node node) {
@@ -91,6 +90,6 @@ public class InMemoryHistoryManager implements HistoryManager {
     public void clear() {
         taskMap.clear();
         historyTask.clear();
-        head.next = null;
+        head.setNext(null);
     }
 }
