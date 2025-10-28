@@ -10,9 +10,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
 
         File file = new File("tasks.csv");
         FileBackedTaskManager manager = new FileBackedTaskManager(file);
-
         System.out.println("------- Создание задач -------");
-
         manager.addEpic("Эпик 1", "Описание эпика 1", TaskStatus.NEW);
         manager.addTask("Задача 1", "Описание задачи 1", TaskStatus.NEW);
 
@@ -23,7 +21,6 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
         }
 
         manager.setStatusTask(2, TaskStatus.IN_PROGRESS);
-
         System.out.println("Задачи сохранены в файл");
         System.out.println("Все задачи: " + manager.getAllTasks());
 
@@ -47,7 +44,6 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
             System.out.println("Sub эпика: " + loadedEpic.getSubtasks().size());
         }
     }
-
 
     private final File file;
 
@@ -104,7 +100,6 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
         String name = line[2];
         TaskStatus status = TaskStatus.valueOf(line[3]);
         String descript = line[4];
-
         switch (type) {
             case TASK:
                 return new Task(name, descript, id, status);
@@ -126,7 +121,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
     public static FileBackedTaskManager loadFromFile(File file) {
         FileBackedTaskManager manager = new FileBackedTaskManager(file);
         try {
-            if(!file.exists()){
+            if (!file.exists()) {
                 return manager; //пустой
             }
             List<String> lines = Files.readAllLines(file.toPath());
