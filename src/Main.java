@@ -1,8 +1,7 @@
 public class Main {
 
     public static void main(String[] args) {
-
-        TaskManager taskManager = Managers.getDefault();
+        /*TaskManager taskManager = Managers.getDefault();
 
         taskManager.addTask("Зачада 1", "Описание1", TaskStatus.NEW);
         taskManager.addTask("Зачада 2", "Описание2", TaskStatus.NEW);
@@ -85,6 +84,6 @@ public class Main {
         taskManagerTwo.deleteEpic(2);
         System.out.println("История: " + taskManagerTwo.getHistory());
         taskManagerTwo.deleteEpic(1);
-        System.out.println("История: " + taskManagerTwo.getHistory());
+        System.out.println("История: " + taskManagerTwo.getHistory());*/
     }
 }

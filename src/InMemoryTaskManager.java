@@ -35,7 +35,6 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     // получение всех задач
-
     @Override
     public ArrayList<String> getAllTasks() {
         ArrayList<String> arrayListAll = new ArrayList<>();
@@ -242,5 +241,17 @@ public class InMemoryTaskManager implements TaskManager {
     @Override
     public List<Task> getHistory() {
         return inMemoryHistoryManager.getHistory();
+    }
+
+    public HashMap<Integer, Task> getTaskHashMap() {
+        return taskHashMap;
+    }
+
+    public HashMap<Integer, Epic> getEpicHashMap() {
+        return epicHashMap;
+    }
+
+    public HashMap<Integer, Subtask> getSubtaskHashMap() {
+        return subtaskHashMap;
     }
 }
