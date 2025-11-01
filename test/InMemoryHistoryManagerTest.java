@@ -1,6 +1,8 @@
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -112,4 +114,29 @@ class InMemoryHistoryManagerTest {
         assertNotEquals(SizeHistory, historyManager.getHistory().size());
         assertEquals(newSizeHistory, historyManager.getHistory().size());
     }
+
+    @Test
+    void testEmptyHistory() {
+        assertTrue(historyManager.getHistory().isEmpty());
+    }
+
+    @Test
+    void testAddToHistory() {
+        Task task = new Task("Задача", "Описание", 1, TaskStatus.NEW);
+        historyManager.addHistory(task);
+
+        assertEquals(1, historyManager.getHistory().size());
+        assertEquals(task, historyManager.getHistory().get(0));
+    }
+
+    @Test
+    void testNoDuplicates() {
+        Task task = new Task("Задача", "Описание", 1, TaskStatus.NEW);
+
+        historyManager.addHistory(task);
+        historyManager.addHistory(task); // Дубликат
+
+        assertEquals(1, historyManager.getHistory().size());
+    }
+
 }
