@@ -1,5 +1,12 @@
+import model.Epic;
+import model.Subtask;
+import model.Task;
+import model.TaskStatus;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import service.HistoryManager;
+import service.Managers;
+import service.TaskManager;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -37,10 +44,10 @@ class ManagersTest {
         Subtask subtask = taskManager.getSubtask(4);
 
         assertEquals(4, taskManager.getAllTasks().size(), "Кол-во совпадает");
-        assertEquals(task, taskManager.getTask(1), "Равны следовательно найден, найдена Task");
+        assertEquals(task, taskManager.getTask(1), "Равны следовательно найден, найдена model.Task");
         assertEquals(taskTwo, taskManager.getTask(2), "Равны следовательно найден, найдена TaskTwo");
-        assertEquals(epic, taskManager.getEpic(3), "Равны следовательно найден, найден Epic");
-        assertEquals(subtask, taskManager.getSubtask(4), "Равны следовательно найден, найдена Subtask");
+        assertEquals(epic, taskManager.getEpic(3), "Равны следовательно найден, найден model.Epic");
+        assertEquals(subtask, taskManager.getSubtask(4), "Равны следовательно найден, найдена model.Subtask");
     }
 
     @Test

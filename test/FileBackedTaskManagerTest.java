@@ -1,5 +1,8 @@
+import model.TaskStatus;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
+import service.FileBackedTaskManager;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;

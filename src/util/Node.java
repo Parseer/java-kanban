@@ -1,3 +1,7 @@
+package util;
+
+import model.Task;
+
 public class Node {
     private int taskId;
     private Node prev;

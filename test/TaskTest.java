@@ -1,7 +1,12 @@
 import static org.junit.jupiter.api.Assertions.*;
 
+import model.Epic;
+import model.Subtask;
+import model.Task;
+import model.TaskStatus;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import service.InMemoryTaskManager;
 
 
 class TaskTest {
@@ -12,7 +17,7 @@ class TaskTest {
         taskManager = new InMemoryTaskManager();
     }
 
-    //проверьте, что экземпляры класса Task равны друг другу, если равен их id;
+    //проверьте, что экземпляры класса model.Task равны друг другу, если равен их id;
     @Test
     public void isEqualToById() {
         taskManager.addTask("3", "8", TaskStatus.NEW);
@@ -20,7 +25,7 @@ class TaskTest {
         assertEquals(taskManager.getTask(1), taskTwo, "Задачи не совпадают.");
     }
 
-    //проверьте, что наследники класса Task равны друг другу, если равен их id;
+    //проверьте, что наследники класса model.Task равны друг другу, если равен их id;
     @Test
     public void isEqualToByIdTaskChildEpic() {
         taskManager.addEpic("3", "8", TaskStatus.NEW);
@@ -28,7 +33,7 @@ class TaskTest {
         assertEquals(taskManager.getEpic(1), epic, "Задачи не совпадают.");
     }
 
-    //проверьте, что наследники класса Task равны друг другу, если равен их id;
+    //проверьте, что наследники класса model.Task равны друг другу, если равен их id;
     @Test
     public void isEqualToByIdTaskChildSubtest() {
         taskManager.addEpic("3", "8", TaskStatus.NEW);

@@ -1,25 +1,34 @@
+package service;
+
+import model.Epic;
+import model.Subtask;
+import model.Task;
+import model.TaskStatus;
+
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 public interface TaskManager {
-    //Создание Task задачи
+    //Создание model.Task задачи
     void addTask(String nameTask, String descriptionTask, TaskStatus typesOfStatuses);
 
-    //Создание Epic задачи
+    //Создание model.Epic задачи
     void addEpic(String nameTask, String descriptionTask, TaskStatus typesOfStatuses);
 
-    //Создание Subtask задачи
+    //Создание model.Subtask задачи
     void addSubtask(String nameTask, String descriptionTask, TaskStatus typesOfStatuses, Epic epic);
 
     ArrayList<String> getAllTasks();
 
-    // получение задач Task
+    // получение задач model.Task
     ArrayList<String> getTasks();
 
-    // получение задач Epic
+    // получение задач model.Epic
     ArrayList<String> getEpics();
 
-    // получение задач Subtask
+    // получение задач model.Subtask
     ArrayList<String> getSubtasks();
 
     // Отчистка ArrayList
@@ -47,7 +56,7 @@ public interface TaskManager {
 
     void deleteSubtask(int idSub);
 
-    //получение списка всех подзадач Epic
+    //получение списка всех подзадач model.Epic
     ArrayList<Subtask> getEpicList(int idEpic);
 
     // изменение статуса
@@ -55,7 +64,7 @@ public interface TaskManager {
 
     void setStatusSubtask(int idSubtask, TaskStatus typesOfStatuses);
 
-    // проверка статуса для Epic
+    // проверка статуса для model.Epic
     void checkStatus(Epic epic);
 
     List<Task> getHistory();
@@ -67,4 +76,7 @@ public interface TaskManager {
     boolean hasTimeOverlap(Task task1, Task task2);
 
     boolean isTaskOverlapping(Task task);
+
+    void addTask(String name, String description, TaskStatus status, Duration duration, LocalDateTime startTime);
+
 }

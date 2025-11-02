@@ -1,3 +1,8 @@
+package service;
+
+import model.Task;
+import util.Node;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -46,7 +51,7 @@ public class InMemoryHistoryManager implements HistoryManager {
         }
     }
 
-    //Перепревязка Node
+    //Перепревязка util.Node
     private void addToHead(Node node) {
         node.setPrev(head);
         node.setNext(head.getNext());
@@ -63,7 +68,6 @@ public class InMemoryHistoryManager implements HistoryManager {
         removeNode(node);
         addToHead(node);
     }
-
 
     @Override
     public ArrayList<Task> getHistory() {
