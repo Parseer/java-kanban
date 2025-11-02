@@ -1,5 +1,10 @@
+import model.Epic;
+import model.Subtask;
+import model.Task;
+import model.TaskStatus;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import service.InMemoryTaskManager;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -11,7 +16,7 @@ class InMemoryTaskManagerTest {
         taskManager = new InMemoryTaskManager();
     }
 
-    //проверьте, что InMemoryTaskManager действительно добавляет задачи разного типа и может найти их по id;
+    //проверьте, что service.InMemoryTaskManager действительно добавляет задачи разного типа и может найти их по id;
     @Test
     public void addTestAndSearch() {
         taskManager.addTask("1", "2", TaskStatus.NEW); // id 1
@@ -25,10 +30,10 @@ class InMemoryTaskManagerTest {
         Subtask subtask = taskManager.getSubtask(4);
 
         assertEquals(4, taskManager.getAllTasks().size(), "Кол-во совпадает");
-        assertEquals(task, taskManager.getTask(1), "Равны следовательно найден, найдена Task");
+        assertEquals(task, taskManager.getTask(1), "Равны следовательно найден, найдена model.Task");
         assertEquals(taskTwo, taskManager.getTask(2), "Равны следовательно найден, найдена TaskTwo");
-        assertEquals(epic, taskManager.getEpic(3), "Равны следовательно найден, найден Epic");
-        assertEquals(subtask, taskManager.getSubtask(4), "Равны следовательно найден, найдена Subtask");
+        assertEquals(epic, taskManager.getEpic(3), "Равны следовательно найден, найден model.Epic");
+        assertEquals(subtask, taskManager.getSubtask(4), "Равны следовательно найден, найдена model.Subtask");
     }
 
     //проверьте, что задачи с заданным id и сгенерированным id не конфликтуют внутри менеджера;

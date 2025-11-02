@@ -1,13 +1,31 @@
+import model.TaskStatus;
+import service.Managers;
+import service.TaskManager;
+import http.HttpTaskServer;
+import java.io.IOException;
+
 public class Main {
 
     public static void main(String[] args) {
+        try {
+            HttpTaskServer server = new HttpTaskServer();
+            server.start();
+            // Сервер работает в фоновом режиме
+            Thread.currentThread().join();
+
+        } catch (IOException e) {
+            System.err.println("Ошибка запуска сервера: " + e.getMessage());
+        } catch (InterruptedException e) {
+            System.out.println("Сервер остановлен");
+        }
+
         TaskManager taskManager = Managers.getDefault();
 
         taskManager.addTask("Зачада 1", "Описание1", TaskStatus.NEW);
         taskManager.addTask("Зачада 2", "Описание2", TaskStatus.NEW);
 
-        taskManager.addEpic("Epic Задача 3", "Описание3", TaskStatus.NEW);
-        taskManager.addEpic("Epic Зачада 4", "Описание4", TaskStatus.NEW);
+        taskManager.addEpic("model.Epic Задача 3", "Описание3", TaskStatus.NEW);
+        taskManager.addEpic("model.Epic Зачада 4", "Описание4", TaskStatus.NEW);
 
         taskManager.addSubtask("Sub Зачада 5", "Описание2", TaskStatus.NEW, taskManager.getEpic(3));
         taskManager.addSubtask("Sub Зачада 6", "Описание2", TaskStatus.NEW, taskManager.getEpic(4));
@@ -58,8 +76,8 @@ public class Main {
         System.out.println("---------Доп.Задание---------");
         //Задание 1
         TaskManager taskManagerTwo = Managers.getDefault();
-        taskManagerTwo.addEpic("Epic Задача 1", "Описание1", TaskStatus.NEW);
-        taskManagerTwo.addEpic("Epic Зачада 2", "Описание2", TaskStatus.NEW);
+        taskManagerTwo.addEpic("model.Epic Задача 1", "Описание1", TaskStatus.NEW);
+        taskManagerTwo.addEpic("model.Epic Зачада 2", "Описание2", TaskStatus.NEW);
         taskManagerTwo.addSubtask("Sub Зачада 3", "Описание3", TaskStatus.NEW, taskManagerTwo.getEpic(1));
         taskManagerTwo.addSubtask("Sub Зачада 4", "Описание4", TaskStatus.NEW, taskManagerTwo.getEpic(1));
         taskManagerTwo.addSubtask("Sub Зачада 5", "Описание5", TaskStatus.NEW, taskManagerTwo.getEpic(1));
@@ -85,10 +103,5 @@ public class Main {
         System.out.println("История: " + taskManagerTwo.getHistory());
         taskManagerTwo.deleteEpic(1);
         System.out.println("История: " + taskManagerTwo.getHistory());
-
-
-
-
-
     }
 }

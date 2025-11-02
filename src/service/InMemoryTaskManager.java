@@ -1,3 +1,10 @@
+package service;
+
+import model.Epic;
+import model.Subtask;
+import model.Task;
+import model.TaskStatus;
+
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -36,7 +43,7 @@ public class InMemoryTaskManager implements TaskManager {
         }
     }
 
-    //Создание Epic задачи
+    //Создание model.Epic задачи
     @Override
     public void addEpic(String nameTask, String descriptionTask, TaskStatus typesOfStatuses) {
         counterId++; //Получаем новый id путем прибавления 1
@@ -55,7 +62,7 @@ public class InMemoryTaskManager implements TaskManager {
         }
     }
 
-    //Создание Subtask задачи
+    //Создание model.Subtask задачи
     @Override
     public void addSubtask(String nameTask, String descriptionTask, TaskStatus typesOfStatuses, Epic epic) {
         counterId++;
@@ -77,28 +84,6 @@ public class InMemoryTaskManager implements TaskManager {
         checkStatus(epic);
     }
 
-    public void addSubtask(String nameTask, String descriptionTask, TaskStatus typesOfStatuses,
-                           Epic epic, Duration duration, LocalDateTime startTime) {
-        counterId++;
-        Subtask subtask = new Subtask(nameTask, descriptionTask, counterId, typesOfStatuses, epic, duration, startTime);
-
-        if (isTaskOverlapping(subtask)) {
-            counterId--; // Откатываем counterId, так как задача не добавлена
-            throw new IllegalArgumentException("Подзадача пересекается по времени с существующей задачей");
-        }
-
-        subtaskHashMap.put(counterId, subtask);
-        epic.addInList(subtask);
-
-        if (subtask.getStartTime() != null) {
-            prioritizedTasks.add(subtask);
-        }
-
-        // Обновляем статус эпика после добавления подзадачи
-        checkStatus(epic);
-    }
-
-
     // получение всех задач
     @Override
     public ArrayList<String> getAllTasks() {
@@ -113,7 +98,7 @@ public class InMemoryTaskManager implements TaskManager {
                 .collect(Collectors.toCollection(ArrayList::new));
     }
 
-    // получение задач Task
+    // получение задач model.Task
     @Override
     public ArrayList<String> getTasks() {
         return taskHashMap.isEmpty() ?
@@ -123,7 +108,7 @@ public class InMemoryTaskManager implements TaskManager {
                         .collect(Collectors.toCollection(ArrayList::new));
     }
 
-    // получение задач Epic
+    // получение задач model.Epic
     @Override
     public ArrayList<String> getEpics() {
         return epicHashMap.isEmpty() ?
@@ -133,7 +118,7 @@ public class InMemoryTaskManager implements TaskManager {
                         .collect(Collectors.toCollection(ArrayList::new));
     }
 
-    // получение задач Subtask
+    // получение задач model.Subtask
     @Override
     public ArrayList<String> getSubtasks() {
         return subtaskHashMap.isEmpty() ?
@@ -242,7 +227,7 @@ public class InMemoryTaskManager implements TaskManager {
                 prioritizedTasks.add(subtask);
             }
 
-            checkStatus(subtask.getEpicSub()); // обновит статус Epic
+            checkStatus(subtask.getEpicSub()); // обновит статус model.Epic
         }
     }
 
@@ -297,7 +282,7 @@ public class InMemoryTaskManager implements TaskManager {
         }
     }
 
-    //получение списка всех подзадач Epic
+    //получение списка всех подзадач model.Epic
     @Override
     public ArrayList<Subtask> getEpicList(int idEpic) {
         Epic epic = epicHashMap.get(idEpic);
@@ -316,11 +301,11 @@ public class InMemoryTaskManager implements TaskManager {
     public void setStatusSubtask(int idSubtask, TaskStatus typesOfStatuses) {
         if (subtaskHashMap.containsKey(idSubtask)) {
             getSubtask(idSubtask).setStatus(typesOfStatuses); //ищем по id и меняем статус
-            checkStatus(getSubtask(idSubtask).getEpicSub()); // проверка и изменения статуса для Epic
+            checkStatus(getSubtask(idSubtask).getEpicSub()); // проверка и изменения статуса для model.Epic
         }
     }
 
-    // проверка статуса для Epic
+    // проверка статуса для model.Epic
     @Override
     public void checkStatus(Epic epic) {
         if (epic.getSubtasks().isEmpty()) {
@@ -403,5 +388,21 @@ public class InMemoryTaskManager implements TaskManager {
         return prioritizedTasks.stream()
                 .filter(existingTask -> !existingTask.equals(newTask)) // Исключаем саму задачу при обновлении
                 .anyMatch(existingTask -> hasTimeOverlap(newTask, existingTask));
+    }
+
+    @Override
+    public void addTask(String name, String description, TaskStatus status, Duration duration, LocalDateTime startTime) {
+        counterId++;
+        Task task = new Task(name, description, counterId, status, duration, startTime);
+
+        if (isTaskOverlapping(task)) {
+            counterId--; // Откатываем counterId
+            throw new IllegalArgumentException("Задача пересекается по времени с существующей задачей");
+        }
+
+        taskHashMap.put(counterId, task);
+        if (task.getStartTime() != null) {
+            prioritizedTasks.add(task);
+        }
     }
 }

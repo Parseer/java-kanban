@@ -1,3 +1,7 @@
+package service;
+
+import model.*;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -209,11 +213,11 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
         }
 
         switch (type) {
-            case TASK:
+            case TaskType.TASK:
                 return new Task(name, descript, id, status, duration, startTime);
-            case EPIC:
+            case TaskType.EPIC:
                 return new Epic(name, descript, id, status, duration, startTime);
-            case SUBTASK:
+            case TaskType.SUBTASK:
                 int epicId = line.length > 5 && !line[5].isEmpty() ? Integer.parseInt(line[5]) : 0;
                 Epic epic = getEpicHashMap().get(epicId);
                 if (epic == null) {

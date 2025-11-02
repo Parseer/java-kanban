@@ -1,3 +1,5 @@
+package model;
+
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -51,12 +53,10 @@ public class Epic extends Task {
                 .orElse(null);
     }
 
-    //Добавление подзадачи в список Epic задачи
     public void addInList(Subtask subtask) {
         listSubtask.add(subtask);
     }
 
-    //Получение всех подзадач в списке Epic
     public ArrayList<Subtask> getSubtasks() {
         return listSubtask;
     }

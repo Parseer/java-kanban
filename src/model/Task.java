@@ -1,3 +1,5 @@
+package model;
+
 import java.time.Duration;
 import java.time.LocalDateTime;
 
@@ -42,11 +44,9 @@ public class Task {
         return localDateTime;
     }
 
-
     public int getId() { //получение id
         return id;
     }
-
 
     public String getDescription() {
         return descriptionTask;

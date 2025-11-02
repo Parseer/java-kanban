@@ -1,3 +1,5 @@
+package model;
+
 import java.time.Duration;
 import java.time.LocalDateTime;
 
@@ -15,7 +17,7 @@ public class Subtask extends Task {
         this.epic = epic;
     }
 
-    public Epic getEpicSub() { // получение Epic к которому пренадлежит
+    public Epic getEpicSub() { // получение model.Epic к которому пренадлежит
         return epic;
     }
 }

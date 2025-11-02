@@ -1,7 +1,12 @@
+import model.Epic;
+import model.Subtask;
+import model.Task;
+import model.TaskStatus;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import java.util.List;
+import service.InMemoryHistoryManager;
+import service.Managers;
+import service.TaskManager;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -10,7 +15,7 @@ class InMemoryHistoryManagerTest {
     private static InMemoryHistoryManager historyManager;
     private static TaskManager taskManager;
 
-    //убедитесь, что задачи, добавляемые в HistoryManager, сохраняют предыдущую версию задачи и её данных.
+    //убедитесь, что задачи, добавляемые в service.HistoryManager, сохраняют предыдущую версию задачи и её данных.
     @BeforeEach
     public void beforeEach() {
         historyManager = new InMemoryHistoryManager();
@@ -34,7 +39,7 @@ class InMemoryHistoryManagerTest {
         //Меняем статусы задач
         taskManager.setStatusTask(taskManager.getTask(1).getId(), TaskStatus.IN_PROGRESS);
         taskManager.setStatusSubtask(taskManager.getSubtask(3).getId(), TaskStatus.IN_PROGRESS);
-        //У Epic статус меняется автоматически, в зависимости от его подзадач. Теперь у него тоже In_PROGRESS
+        //У model.Epic статус меняется автоматически, в зависимости от его подзадач. Теперь у него тоже In_PROGRESS
 
         //добавляем в history
         historyManager.addHistory(taskManager.getTask(1));
